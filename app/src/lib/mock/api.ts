@@ -1100,6 +1100,7 @@ export function createMockApi(): TensorFoldStudioApi {
       if (provider.transport === 'claude-cli') return provider.models?.length ? provider.models : CLAUDE_CLI_MODELS
       const baseUrl = provider.baseUrl
       if (provider.source === 'openrouter' || baseUrl.includes('openrouter.ai')) return ['openrouter/free', 'openrouter/auto', 'openrouter/fusion', 'z-ai/glm-5.2', 'nvidia/nemotron-3-ultra-550b-a55b:free', 'nvidia/nemotron-3-super-120b-a12b:free', 'qwen/qwen3-coder:free', 'openai/gpt-oss-120b:free']
+      if (provider.source === 'aimlapi' || baseUrl.includes('api.aimlapi.com')) return ['openai/gpt-5.4-mini', 'anthropic/claude-sonnet-4.6', 'google/gemini-2.5-flash', 'deepseek/deepseek-chat', 'zhipu/glm-5.2']
       if (provider.source === 'ai-gateway' || baseUrl.includes('ai-gateway.vercel.sh')) return ['openai/gpt-5.4', 'openai/gpt-5.5', 'openai/gpt-4.1', 'openai/o4-mini', 'anthropic/claude-sonnet-4.6', 'anthropic/claude-opus-4.1', 'xai/grok-4.1-fast-reasoning', 'google/gemini-2.5-pro']
       if (baseUrl.includes('9000')) return ['Qwen3-Coder-Next-MLX-8bit', 'Qwen2.5-Coder-14B-Instruct-MLX-8bit']
       if (baseUrl.includes('11434')) return ['qwen2.5-coder:14b', 'llama3.1:8b', 'deepseek-r1:7b', 'mistral-nemo']

@@ -28,6 +28,18 @@ TensorFold's refresh path is OpenRouter-aware:
   `nvidia/nemotron-3-ultra-550b-a55b:free`, `qwen/qwen3-coder:free`, and
   `openai/gpt-oss-120b:free`.
 
+## AI/ML API
+
+AI/ML API is an OpenAI-compatible provider at `https://api.aimlapi.com/v1` with one key
+(`Authorization: Bearer`).
+TensorFold's refresh path is AI/ML API-aware:
+
+- Reads the public `/models` catalogue without sending the key, and keeps only
+  `type: "openai/chat-completions"` entries.
+- Keeps the seeded IDs near the top: `openai/gpt-5.4-mini`, `anthropic/claude-sonnet-4.6`,
+  `google/gemini-2.5-flash`, `deepseek/deepseek-chat`, and `zhipu/glm-5.2`.
+- Applies only when the base URL host is exactly `api.aimlapi.com`.
+
 ## Multi-Model Rooms
 
 Rooms already support multiple models at the TensorFold layer: every seat stores a

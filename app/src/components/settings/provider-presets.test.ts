@@ -24,4 +24,14 @@ const onboarding = readFileSync(fileURLToPath(new URL('../Onboarding.tsx', impor
 assert.match(onboarding, /providerPresetNeedsApiKey/, 'onboarding no longer requires a key for cli-local presets')
 assert.match(onboarding, /auth === 'cli-local'/, 'onboarding explains local CLI auth instead of rendering a password field')
 
-console.log('Pi preset, Settings, onboarding, and raw-key migration UI are aligned')
+
+
+const aimlStart = shared.indexOf("{ key: 'aimlapi'")
+assert.ok(aimlStart >= 0, 'AI/ML API is an addable provider preset')
+const aiml = shared.slice(aimlStart, shared.indexOf('\n', aimlStart))
+assert.match(aiml, /auth: 'api-key'/)
+assert.match(aiml, /baseUrl: 'https:\/\/api\.aimlapi\.com\/v1'/)
+assert.match(aiml, /source: 'aimlapi'/)
+assert.match(aiml, /models: \['openai\/gpt-5\.4-mini'/)
+assert.match(shared, /cloudKey: 'openrouter'/, 'the cloud setup wizard still opens on OpenRouter')
+console.log('Provider presets, Settings, onboarding, and raw-key migration UI are aligned')

@@ -43,6 +43,7 @@ import { collectFiles, combinedDiff, DEFAULT_GLOB_RESULTS, MAX_GLOB_RESULTS, par
 import { assertFetchableUrl, fetchText, parseNewsRss, safePublicWebUrl, stripHtml } from './tool-web'
 import { executeParallelWebTool } from './tool-parallel-search'
 import { executeKeenableWebTool } from './tool-keenable-search'
+import { executeAimlapiWebTool } from './tool-aimlapi'
 import { connectorName, formatMarkdownTable, formatToolNumber, normalizePersonalMessageConnector, parseStringList, personalMessageDraftEvent } from './tool-labels'
 import { filterNonSensitiveRetrievalKinds, normalizeVisualizationSpec } from './tool-visualization'
 import { isManagedOutputRef } from './context-governance'
@@ -123,6 +124,8 @@ export interface ToolContext {
   documentSettings?: DocumentConnectorSettings
   documentLibrary?: DocumentEvidencePort
   browserSettings?: BrowserConnectorSettings
+  /** Reads the saved AI/ML API provider key at dispatch; only tools.aimlapi.com receives it. */
+  aimlapiApiKey?: () => string
   threads?: Thread[]
   /** Re-read canonical source privacy at dispatch instead of retaining a stale permissive list. */
   recallThreads?: () => Thread[]
@@ -587,6 +590,7 @@ export async function executeTool(name: string, args: Record<string, any>, ctx: 
       case 'web_search': {
         if (args.provider === 'parallel') return await executeParallelWebTool(name, args, ctx)
         if (args.provider === 'keenable') return await executeKeenableWebTool(name, args, ctx)
+        if (args.provider === 'aimlapi') return await executeAimlapiWebTool(name, args, ctx)
         if (args.provider != null && args.provider !== 'google_news') return { ok: false, output: 'Unknown web search provider.' }
         const query = String(args.query ?? '').trim()
         if (!query) return { ok: false, output: 'Search query is required.', title: 'Web search' }
@@ -613,6 +617,7 @@ export async function executeTool(name: string, args: Record<string, any>, ctx: 
       case 'web_fetch': {
         if (args.provider === 'parallel') return await executeParallelWebTool(name, args, ctx)
         if (args.provider === 'keenable') return await executeKeenableWebTool(name, args, ctx)
+        if (args.provider === 'aimlapi') return await executeAimlapiWebTool(name, args, ctx)
         if (args.provider != null && args.provider !== 'direct') return { ok: false, output: 'Unknown web fetch provider.' }
         // assertFetchableUrl validates the host string AND DNS-resolves it, so a
         // public name that resolves to an internal/metadata IP is rejected before

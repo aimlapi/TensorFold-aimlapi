@@ -16,6 +16,7 @@ import { runComputerUse } from './computer-use-host'
 import { phoneHost } from './phone-host'
 import { engineService } from './engine-runtime'
 import { isExternalProvider } from '../../../shared/provider-trust'
+import { aimlapiToolKey } from '../../agent/model-aimlapi'
 import { stripIncognitoThreads } from '../../agent/incognito'
 import type { PhoneToolInput } from '../../agent/types'
 import type { ComputerUseInput } from '../../agent/computer-use/actions'
@@ -399,6 +400,7 @@ export function createToolContextRuntime(deps: ToolContextRuntimeDeps): ToolCont
       documentSettings: scopedDocumentSettings(store.settings.documents, documentSourceIds),
       documentLibrary: run?.provider && !isExternalProvider(run.provider) && !run.thread?.bot && !run.thread?.orchestratorHostId ? scopedDocumentLibrary(documentLibrary(), documentSourceIds, assertDocumentPolicyCurrent) : undefined,
       browserSettings: store.settings.browser,
+      aimlapiApiKey: () => aimlapiToolKey(store.settings.providers),
       threads: recallThreads(),
       recallThreads,
       recordRecallSources: (ids: string[]) => { for (const id of ids) recalledSourceIds.add(id) },

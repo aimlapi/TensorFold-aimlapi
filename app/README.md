@@ -20,7 +20,7 @@ minimum; isolated bot VMs additionally require macOS 26 or later.
 
 - **Bring your own model.** Any OpenAI‑compatible `/chat/completions` endpoint works:
   - **Local** — oMLX, Ollama (`http://127.0.0.1:11434/v1`), LM Studio (`http://127.0.0.1:1234/v1`), vLLM, llama.cpp.
-  - **Cloud** — OpenAI, OpenRouter, z.ai GLM, or any compatible provider. Configure as many as you like.
+  - **Cloud** — OpenAI, OpenRouter, AI/ML API, z.ai GLM, or any compatible provider. Configure as many as you like.
   - **Rooms** — pin each room seat to a different provider/model so local and cloud models can collaborate on the same task.
 - **Full agentic loop.** The model can `read_file`, `write_file`, `edit_file`, `list_dir`,
   `search`, and `run_command` inside a workspace folder you choose.
@@ -79,6 +79,16 @@ The `web_search` and `web_fetch` tools accept `provider: "keenable"` for the
 and pages as Markdown, with no account or API key. Anonymous use has service rate limits.
 Queries and requested URLs, with the app name `TensorFold`, go to Keenable when this provider is selected.
 The same defaults, permissions, local-only restrictions, 20-second timeout and cancellation apply as above.
+
+### Optional AI/ML API web research
+
+Ask the built-in agent to “Use AI/ML API to search the web” or “Use AI/ML API to read this URL.”
+The `web_search` and `web_fetch` tools accept `provider: "aimlapi"` for the
+[AI/ML API toolbox](https://docs.aimlapi.com): general web results with snippets, and pages as Markdown.
+It uses the API key saved on the AI/ML API provider in **Settings → Providers** and bills that account per call.
+Queries and requested URLs go to `https://tools.aimlapi.com` only when this provider is selected; the key is
+sent only to that host and the request refuses redirects.
+The same defaults, permissions, local-only restrictions and cancellation apply as above, with a 60-second timeout.
 
 ### Browser demo mode
 

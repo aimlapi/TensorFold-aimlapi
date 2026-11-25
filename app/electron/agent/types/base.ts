@@ -109,7 +109,7 @@ export interface Provider {
   kind?: 'cloud' | 'local'
   /** Transport may be loopback forwarding; computation still leaves this device. */
   remoteCompute?: true
-  source?: 'openai' | 'openrouter' | 'ai-gateway' | 'ollama' | 'lmstudio' | 'omlx' | 'tensorfold' | 'custom'
+  source?: 'openai' | 'openrouter' | 'ai-gateway' | 'aimlapi' | 'ollama' | 'lmstudio' | 'omlx' | 'tensorfold' | 'custom'
   cliPath?: string
   cliProfile?: string
   cliSandbox?: 'read-only' | 'workspace-write' | 'danger-full-access'

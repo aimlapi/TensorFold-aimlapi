@@ -5,6 +5,7 @@ import { checkClaudeCli } from '../../agent/claude-cli'
 import { defaultCliModels } from '../../agent/cli-models'
 import { builtinClis, cliToolStatuses } from '../../agent/cli-registry'
 import { fetchAiGatewayModels, isAiGatewayProvider } from '../../agent/model-gateway'
+import { fetchAimlapiModels, isAimlapiProvider } from '../../agent/model-aimlapi'
 import { contextsFromModelsPayload, fetchLmStudioModels, fetchOllamaModels, fetchOpenAiCompatibleModelsDetailed, isLmStudioProvider, isOllamaProvider, isOpenRouterProvider } from '../../agent/local-providers'
 import { hostedContextIdentity, recordHostedContext, recordHostedContexts } from '../../agent/hosted-context'
 import { providerWithAccount, resolveProviderModel, selectProviderAccount } from '../../agent/provider-accounts'
@@ -176,6 +177,7 @@ export async function listProviderModels(provider: Provider): Promise<string[]> 
   const providerFetch = createProviderFetch(effectiveProvider)
   if (isOpenRouterProvider(effectiveProvider)) return fetchOpenRouterModels(effectiveProvider, providerFetch)
   if (isAiGatewayProvider(effectiveProvider)) return fetchAiGatewayModels(effectiveProvider, providerFetch)
+  if (isAimlapiProvider(effectiveProvider)) return fetchAimlapiModels(effectiveProvider, providerFetch)
   if (isOllamaProvider(effectiveProvider)) return fetchOllamaModels(effectiveProvider.baseUrl)
   if (isLmStudioProvider(effectiveProvider)) return fetchLmStudioModels(effectiveProvider.baseUrl, effectiveProvider.apiKey)
   const url = effectiveProvider.baseUrl.replace(/\/+$/, '') + '/models'
