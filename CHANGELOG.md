@@ -4,6 +4,8 @@ Each release's page on GitHub has its notes and measurements. See [the 1.0.0 rel
 
 ## Unreleased
 
+- CLI: `tensorfold tfq3 MODEL` resolves a local checkpoint or pulls an uncached Hugging Face repo id, detects known TFQ3 families (`qwen3_5`, `qwen4_exp`, `glm5_next`) or routes any other Safetensors architecture to the model-agnostic path (`--bits`, `--target-gib`, `--fit auto|GB`, `--quantize-vision`, `--quantize-drafter`, `--quantize-embed`), dispatches to `tfq3` when installed, and includes a built-in zero-install pure-Zig TFQ3 encoder (`--native` / automatic fallback) and shard validator (`tensorfold tfq3 inspect`) (#5018).
+
 - Hy4-flash (groundwork, not yet served): the host side of vision gets its config, patchify, bilinear position taps and the 3D M-RoPE layout with image newlines (#5022, part of #4795). Thanks to @GrgaPalcic.
 
 - Metal: Flash Next's three prompt libraries take the rotary scalar from `fn_rotary_scalar.metal` instead of their own copies; the assembled sources are byte-identical (#5061, part of #2251). Thanks to @jschmied.
