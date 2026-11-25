@@ -3,6 +3,7 @@ import { PRESETS } from '../agent/theme-presets'
 import { CODEX_CLI_MODELS, CLAUDE_CLI_MODELS } from '../agent/cli-models'
 import { makeRemoteControlToken } from './paths'
 import { builtinEngineProvider } from '../agent/engine/provider'
+import { AIMLAPI_DEFAULT_MODELS } from '../agent/model-aimlapi'
 
 // Built-in defaults + provider seeding + the small settings-migration gate.
 // The giant Settings literal lives here so the persistence module (load/save) and
@@ -22,6 +23,7 @@ export function defaultSettings(): Settings {
       { id: 'ollama', name: 'Ollama (local)', baseUrl: 'http://127.0.0.1:11434/v1', apiKey: 'ollama', models: ['qwen2.5-coder:14b', 'llama3.1:8b'], kind: 'local', source: 'ollama' },
       { id: 'lmstudio', name: 'LM Studio (local)', baseUrl: 'http://127.0.0.1:1234/v1', apiKey: 'lm-studio', models: ['local-model'], kind: 'local', source: 'lmstudio' },
       { id: 'openrouter', name: 'OpenRouter', baseUrl: 'https://openrouter.ai/api/v1', apiKey: '', models: ['openrouter/free', 'openrouter/auto', 'openrouter/fusion', 'z-ai/glm-5.2', 'nvidia/nemotron-3-ultra-550b-a55b:free', 'qwen/qwen3-coder:free', 'openai/gpt-oss-120b:free'], kind: 'cloud', source: 'openrouter' },
+      { id: 'aimlapi', name: 'AI/ML API', baseUrl: 'https://api.aimlapi.com/v1', apiKey: '', models: [...AIMLAPI_DEFAULT_MODELS], kind: 'cloud', source: 'aimlapi' },
       { id: 'zai', name: 'z.ai GLM', baseUrl: 'https://api.z.ai/api/paas/v4', apiKey: '', models: ['glm-5.2', 'glm-5.1', 'glm-4.6', 'glm-4-flash'], kind: 'cloud' },
       builtinEngineProvider(),
     ],
